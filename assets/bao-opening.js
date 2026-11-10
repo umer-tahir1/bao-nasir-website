@@ -1,5 +1,6 @@
 // Timing starts after the image is decoded and has had a chance to paint.
-export const HOLD_MS = 2000;
+export const HOLD_MS = 1200;
+export const MAX_WAIT_MS = 1800;
 
 // Percentage coordinates, top to bottom. One boundary produces matching halves.
 export const CRACK_POINTS = [
@@ -26,6 +27,7 @@ export class BaoOpeningAnimation {
 
   async start() {
     try {
+      this.failSafeTimer = setTimeout(this.finish, MAX_WAIT_MS);
       const stage = this.overlay.querySelector('.bao-opening__stage');
       const original = stage.querySelector('img');
       const boundary = CRACK_POINTS.map(([x, y]) => `${x}% ${y}%`).join(', ');
@@ -92,6 +94,7 @@ export class BaoOpeningAnimation {
     this.disposed = true;
     clearTimeout(this.holdTimer);
     clearTimeout(this.cleanupTimer);
+    clearTimeout(this.failSafeTimer);
     cancelAnimationFrame(this.frame);
     this.events.abort();
     this.overlay.remove();

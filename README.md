@@ -9,16 +9,15 @@ Run `python3 -m http.server 8000` from this folder and open
 
 ## Opening image
 
-`public/bao-opening.png` is an exact, unmodified copy of the supplied `image.png`.
+`public/bao-opening.jpg` is the web-optimized version of the supplied `image.png`.
 To use another supplied image, place it in `public/` and update **both** the
-preload `href` and the image `src` in `index.html`. For example, use
-`./public/bao-opening.jpg` in both places for a JPEG. Keep its actual file format.
+preload `href` and the image `src` in `index.html`. Keep its actual file format.
 `object-fit: cover` fills each viewport, so the visible framing varies with the
 screen's aspect ratio; the source file itself is never cropped or edited.
 
 The image is preloaded at high priority and included in the initial HTML. Its
-two-second still hold begins after decoding. A first visit still needs the image
-bytes to arrive; the loading background matches the dark page.
+short still hold begins after decoding, and a slow image load fails open so the
+page never stays blocked behind the opening animation.
 
 ## Controls
 
