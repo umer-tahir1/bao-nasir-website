@@ -1,0 +1,100 @@
+/* Decorative layer: content < plate (20) < future navigation/modals < splash. */
+.floating-food {
+  --plate-size: clamp(260px, 27vw, 430px);
+  --travel-vw: 35;
+  --edge-gap: 16px;
+  --plate-top: 50%;
+  --plate-bottom: auto;
+  --bob-amount: 16px;
+  --bob-duration: 7s;
+  --entrance-duration: 800ms;
+  --entrance-offset: 30px;
+  --entrance-scale: 0.8;
+  position: fixed;
+  inset: 0;
+  box-sizing: border-box;
+  z-index: 20;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  visibility: hidden;
+}
+
+.floating-food.is-visible { visibility: visible; }
+
+.floating-food__anchor {
+  /* Centered viewport anchor; all horizontal travel happens on the inner layer. */
+  position: fixed;
+  left: 50%;
+  right: auto;
+  top: var(--plate-top);
+  bottom: var(--plate-bottom);
+  width: var(--plate-size);
+  /* Leave room for movement even on short landscape screens. */
+  max-width: 65vh;
+  max-width: 65dvh;
+  transform: translate(-50%, -50%);
+}
+
+/* Independent layers prevent horizontal travel from replacing vertical centering. */
+.floating-food__horizontal { will-change: transform; }
+.floating-food__entrance { opacity: 0; }
+.floating-food.is-visible .floating-food__entrance {
+  animation: food-enter var(--entrance-duration) cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.floating-food__image {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 65vh;
+  max-height: 65dvh;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 30px rgb(0 0 0 / 25%));
+  -webkit-user-drag: none;
+}
+
+.floating-food.is-visible .floating-food__image {
+  animation: food-bob var(--bob-duration) ease-in-out infinite;
+}
+
+@keyframes food-enter {
+  from { opacity: 0; transform: translate3d(0, var(--entrance-offset), 0) scale(var(--entrance-scale)); }
+  to { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes food-bob {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  25% { transform: translate3d(0, calc(-1 * var(--bob-amount)), 0); }
+  75% { transform: translate3d(0, var(--bob-amount), 0); }
+}
+
+@media (max-width: 1023px) {
+  .floating-food {
+    --plate-size: clamp(180px, 25vw, 280px);
+    --travel-vw: 28;
+  }
+}
+
+@media (max-width: 600px) {
+  .floating-food {
+    --plate-size: clamp(130px, 35vw, 170px);
+    --travel-vw: 18;
+    --plate-top: auto;
+    --plate-bottom: 40px;
+    --plate-bottom: max(40px, calc(env(safe-area-inset-bottom, 0px) + 24px));
+    --bob-amount: 10px;
+  }
+  .floating-food__anchor {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-food.is-visible .floating-food__entrance {
+    animation: food-appear 180ms ease-out both;
+  }
+  .floating-food.is-visible .floating-food__image { animation: none; }
+}
+
+@keyframes food-appear { from { opacity: 0; } to { opacity: 1; } }

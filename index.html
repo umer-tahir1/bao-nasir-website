@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" class="bao-opening-active">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#160e0a" />
+    <title>Bao Nasir</title>
+    <link rel="preload" as="image" href="./public/bao-opening.png" fetchpriority="high" />
+    <style>
+      html, body { margin: 0; background: #160e0a; }
+      html.bao-opening-active, html.bao-opening-active body { overflow: hidden; }
+    </style>
+    <link rel="stylesheet" href="./assets/bao-opening.css" />
+    <link rel="stylesheet" href="./components/FloatingFoodPlate.css" />
+    <!-- Temporary scroll-test styles: remove with the five sections below. -->
+    <link rel="stylesheet" href="./assets/temporary-scroll-test.css" />
+    <noscript><style>.bao-opening { display: none; } html.bao-opening-active, html.bao-opening-active body { overflow: auto; }</style></noscript>
+    <script type="module">
+      import { BaoOpeningAnimation } from './assets/bao-opening.js';
+      new BaoOpeningAnimation(document.querySelector('.bao-opening'));
+    </script>
+    <script type="module">
+      import { FloatingFoodPlate } from './components/FloatingFoodPlate.js';
+      new FloatingFoodPlate();
+    </script>
+  </head>
+  <body>
+    <!-- TEMPORARY TEST INTERFACE: replace these five sections when building the site. -->
+    <main class="website-content temporary-test-page" aria-label="Bao Nasir scroll test" inert>
+      <section class="test-section" aria-labelledby="test-bao-title">
+        <div class="test-section__content">
+          <p class="test-section__number">Section 01 · Temporary scroll test</p>
+          <h1 id="test-bao-title">Bao Nasir</h1>
+          <p class="test-section__tagline">Flame. Rice. Chicken.</p>
+          <p>A taste of what’s to come. Scroll through this temporary page to try the floating plate in motion.</p>
+          <a class="test-section__button" href="#test-story">Start scrolling <span aria-hidden="true">↓</span></a>
+        </div>
+      </section>
+
+      <section class="test-section test-section--cream" id="test-story" aria-labelledby="test-story-title">
+        <div class="test-section__content">
+          <p class="test-section__number">Section 02</p>
+          <h2 id="test-story-title">Fire Meets Flavour</h2>
+          <p>Good food brings people together. This space will eventually hold the Bao Nasir story; for now, keep scrolling and watch the plate follow along.</p>
+        </div>
+      </section>
+
+      <section class="test-section" aria-labelledby="test-chicken-title">
+        <div class="test-section__content">
+          <p class="test-section__number">Section 03</p>
+          <h2 id="test-chicken-title">Our Signature Chicken</h2>
+          <p>Roasted chicken, bold flavor, and a plate worth sharing. Temporary text to test the food image against a dark background.</p>
+        </div>
+      </section>
+
+      <section class="test-section test-section--cream" aria-labelledby="test-biryani-title">
+        <div class="test-section__content">
+          <p class="test-section__number">Section 04</p>
+          <h2 id="test-biryani-title">Biryani Done Different</h2>
+          <p>Rice, spice, and something to look forward to. Try scrolling back up to see the plate gently change direction.</p>
+        </div>
+      </section>
+
+      <section class="test-section" aria-labelledby="test-city-title">
+        <div class="test-section__content">
+          <p class="test-section__number">Section 05</p>
+          <h2 id="test-city-title">Made for Gujranwala</h2>
+          <p>The end of the temporary scroll test. The same floating plate stays with you all the way down the page.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Static splash markup makes the exact image available before JavaScript runs. -->
+    <div class="bao-opening" aria-hidden="true">
+      <div class="bao-opening__stage">
+        <img class="bao-opening__image bao-opening__whole"
+          src="./public/bao-opening.png" alt="" fetchpriority="high" decoding="async" />
+      </div>
+    </div>
+  </body>
+</html>
